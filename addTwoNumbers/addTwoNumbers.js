@@ -16,4 +16,23 @@ var addTwoNumbers = function (l1, l2) {
 
 };
 
+const BFS = (root) => {
+  let queue = [root];
+  let values = [];
+
+  while (queue.length){
+    let next = queue.shift();
+    queue.push(next.next);
+    values.push(next.val);
+  }
+
+  return values;
+}
+
+const createList = (l1, l2) => {
+  while(l1.length && l2.length){
+
+  }
+}
+
 module.exports = addTwoNumbers;
