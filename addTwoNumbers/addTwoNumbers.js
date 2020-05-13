@@ -35,9 +35,18 @@ const BFS = (root) => {
 }
 
 const createList = (l1, l2) => {
-  while(l1.length && l2.length){
-
+  let root = new ListNode(l1.val + l2.val);
+  let newNode = root;
+  let next1 = l1;
+  let next2 = l2;
+  while(next1.next && next2.next){
+    next1 = next1.next;
+    next2 = next2.next;
+    newNode.next = new ListNode(next1.val + next2.val);
+    newNode = newNode.next
   }
+
+  return root;
 }
 
 module.exports = addTwoNumbers;
