@@ -11,42 +11,23 @@
 //    this.next = (next === undefined ? null : next)
 //  }
 
-const ListNode = (val, next) => {
-  this.val = (val===undefined ? 0 : val);
-  this.next = (next===undefined ? null : next);
-}
-
-
-var addTwoNumbers = function (l1, l2) {
-
+var addTwoNumbers = function(l1, l2) { //l1 = [2,4,3], l2 = [5,6,4] | l1 = [4,3], l2 = [6,4], carry = false | l1 = [3], l2 = [4], carry = true
+  let node = null;
+  const carry = arguments[2]; //undefined | false | true
+  if (l1 || l2) { //true | true | true
+    const val1 = l1 ? l1.val : 0; // 2 | 4 | 3
+    const val2 = l2 ? l2.val : 0; // 5 | 6 | 4
+    const next1 = l1 ? l1.next : null; // [4,3] | [3] | undefined
+    const next2 = l2 ? l2.next : null; // [6,4] | [4] | undefined
+    const val = carry ? val1 + val2 + 1 : val1 + val2; // 7 | 10 | 8
+    node = new ListNode(val % 10); // [7] | [0] | [8]
+    node.next = addTwoNumbers(next1, next2, val >= 10);
+  } else if (carry) {
+    node = new ListNode(1);
+    node.next = null;
+  }
+  return node;
 };
 
-const BFS = (root) => {
-  let queue = [root];
-  let values = [];
-
-  while (queue.length){
-    let next = queue.shift();
-    queue.push(next.next);
-    values.push(next.val);
-  }
-
-  return values;
-}
-
-const createList = (l1, l2) => {
-  let root = new ListNode(l1.val + l2.val);
-  let newNode = root;
-  let next1 = l1;
-  let next2 = l2;
-  while(next1.next && next2.next){
-    next1 = next1.next;
-    next2 = next2.next;
-    newNode.next = new ListNode(next1.val + next2.val);
-    newNode = newNode.next
-  }
-
-  return root;
-}
 
 module.exports = addTwoNumbers;
